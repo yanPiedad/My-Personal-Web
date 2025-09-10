@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juleane Piedad - Cosmic Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a2e;
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8b8;
+            --accent-color: #4facfe;
+            --accent-secondary: #00f2fe;
+            --valorant-color: #ff4655;
+            --space-color: #9d4edd;
+            --music-color: #f72585;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f0f2f5;
+            --bg-secondary: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #666666;
+            --accent-color: #4facfe;
+            --accent-secondary: #00f2fe;
+            --valorant-color: #ff4655;
+            --space-color: #9d4edd;
+            --music-color: #f72585;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Starfield Background */
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] .navbar {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--accent-color), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .planet {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-bottom: 0.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+            animation: rotate 20s linear infinite;
+        }
+
+        .planet.home {
+            background: linear-gradient(45deg, #ff6b6b, #ffa500);
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        }
+
+        .planet.about {
+            background: linear-gradient(45deg, #4ecdc4, #00d4ff);
+            box-shadow: 0 0 20px rgba(78, 205, 196, 0.5);
+        }
+
+        .planet.schedule {
+            background: linear-gradient(45deg, #45b7d1, #96c93d);
+            box-shadow: 0 0 20px rgba(69, 183, 209, 0.5);
+        }
+
+        .planet.gallery {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            box-shadow: 0 0 20px rgba(240, 147, 251, 极.5);
+        }
+
+        .planet.contacts {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            box-shadow: 0 0 20px rgba(79, 172, 254, 0.5);
+        }
+
+        .planet.projects {
+            background: linear-gradient(45deg, #a8edea, #fed6e3);
+            box-shadow: 0 0 20px rgba(168, 237, 234, 0.5);
+        }
+
+        .planet::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            border-radius: 50%;
+            animation: rotate 3s linear infinite reverse;
+        }
+
+        .planet.active {
+            animation: fastRotate 0.5s ease-in-out, rotate 20s linear infinite 0.5s;
+            transform: scale(1.2);
+            box-shadow: 0 0 30px currentColor;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fastRotate {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.3); }
+            to { transform: rotate(360deg) scale(1.2); }
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .nav-item:hover .nav-link,
+        .nav-item.active .nav-link {
+            opacity: 1;
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .nav-item:hover .planet {
+            transform: scale(1.1);
+            animation-duration: 2s;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            padding: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        .theme-icon {
+            width: 20px;
+            height: 20px;
+            transition: all 0.3s ease;
+        }
+
+        /* Sections */
+        .section {
+            min-height: 100vh;
+            padding: 6rem 2rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            z-index: 1;
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--accent-color);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .particle:nth-child(odd) {
+            background: var(--accent-secondary);
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translateY(-100px) rotate(180deg);
+                opacity: 0.7;
+            }
+        }
+
+        /* Home Section */
+        #home {
+            background: radial-gradient(ellipse at center, rgba(79, 172, 254, 0.1) 0%, transparent 70%);
+            text-align: center;
+        }
+
+        .home-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--accent-color), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(79, 172, 254, 0.5);
+        }
+        
+        .home-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1s forwards;
+        }
+
+        .welcome-text {
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.5s forwards;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .hologram {
+            position: relative;
+            display: inline-block;
+            margin: 2rem 0;
+        }
+
+        .hologram::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid var(--accent-color);
+            border-radius: 10px;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.02); }
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, var(--accent-color), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(30px);
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(79, 172, 254, 0.5);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 20极 40px rgba(79, 172, 254, 0.2);
+        }
+
+        /* About Section */
+        #about {
+            background: radial-gradient(ellipse at center, rgba(78, 205, 196, 0.1) 0%, transparent 70%);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .favorite-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(20px);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .favorite-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 30px rgba(79, 172, 254, 0.2);
+        }
+
+        .favorite-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Video Hover Effects */
+        .video-hover {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 80vw;
+            max-width: 800px;
+            height: auto;
+            max-height: 80vh;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s ease;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 100px rgba(255, 70, 85, 0.7);
+        }
+
+        .video-hover.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: auto;
+        }
+
+        .video-hover video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .video-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .beat-animation {
+            animation: beat 0.5s infinite alternate;
+        }
+
+        @keyframes beat {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        /* Schedule Section */
+        #schedule {
+            background: radial-gradient(ellipse at center, rgba(69, 183, 209, 0.1) 0%, transparent 70%);
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Gallery Section */
+        #gallery {
+            background: radial-gradient(ellipse at center, rgba(240, 147, 251, 0.1) 0%, transparent 70%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 250px;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transform: translateY(20px);
+            opacity: 0;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 40px rgba(79, 172, 254, 0.3);
+        }
+
+        .gallery-placeholder {
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.8), rgba(0, 242, 254, 0.8));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Contacts Section */
+        #contacts {
+            background: radial-gradient(ellipse at center, rgba(79, 172, 254, 0.1) 0%, transparent 70%);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Projects Section */
+        #projects {
+            background: radial-gradient(ellipse at center, rgba(168, 237, 234, 0.1) 0%, transparent 70%);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(20px);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-color);
+            box-shadow: 0 25px 50px rgba(79, 172, 254, 0.3);
+        }
+
+        .project-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--accent-color), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-secondary));
+            z-index: 1001;
+            transition: width 0.3s ease;
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-planet {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent-color), var(--accent-secondary));
+            animation: loadingRotate 2s ease-in-out infinite;
+            box-shadow: 0 0 50px var(--accent-color);
+        }
+
+        @keyframes loadingRotate {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            to { transform: rotate(360极) scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 1.5rem;
+            }
+
+            .planet {
+                width: 35px;
+                height: 35px;
+            }
+
+            .nav-link {
+                font-size: 0.8rem;
+            }
+
+            .home-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .theme-toggle {
+                padding: 0.3rem;
+            }
+
+            .theme-icon {
+                width: 16px;
+                height: 16px;
+            }
+
+            .video-hover {
+                width: 95vw;
+                max-width: none;
+            }
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent-color), var(--accent-secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(180deg);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.35);
+        }
+
+
+        /* Particle Network */
+        .particle-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Achievement Badges */
+        .badges {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .badge {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 8px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+         .valorant-logo {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            width: 300px;
+            height: auto;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <!-- Modal Popup for Welcome/Announcements -->
+    <div id="welcomeModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(20,20,30,0.85);z-index:99999;align-items:center;justify-content:center;">
+        <div style="background:white;color:#222;padding:2rem 2.5rem;border-radius:20px;max-width:400px;text-align:center;box-shadow:0 0 40px #4facfe;position:relative;">
+            <h2 style="margin-bottom:1rem;">👋 Welcome!</h2>
+            <p style="margin-bottom:2rem;">Thanks for visiting my personal web. Explore, interact, and enjoy the new features!</p>
+            <button id="closeWelcomeModal" style="background:#4facfe;color:white;border:none;border-radius:8px;padding:0.7rem 1.5rem;font-weight:bold;cursor:pointer;">Close</button>
+        </div>
+    </div>
+
+    <!-- Floating Feedback Button -->
+    <button id="feedbackBtn" title="Send Feedback" style="position:fixed;bottom:100px;right:30px;z-index:1000;background:#f72585;color:white;border:none;border-radius:50%;width:60px;height:60px;font-size:2rem;box-shadow:0 4px 20px rgba(0,0,0,0.25);cursor:pointer;display:flex;align-items:center;justify-content:center;">💬</button>
+
+    <!-- Search Bar -->
+    <div id="searchBarContainer" style="position:bottom;top:20px;left:50%;transform:translateX(-50%);z-index:1001;background:var(--card-bg);border-radius:20px;padding:0.5rem 1.5rem;box-shadow:0 2px 10px rgba(0,0,0,0.1);display:flex;align-items:center;gap:10px;">
+        <input id="searchBar" type="text" placeholder="Search..." style="border:none;background:transparent;font-size:1rem;color:var(--text-primary);outline:none;width:180px;">
+        <button id="searchBtn" style="background:var(--accent-color);color:white;border:none;border-radius:8px;padding:0.3rem 0.8rem;font-weight:bold;cursor:pointer;">🔍</button>
+    </div>
+    <!-- Loading Screen -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-planet"></div>
+    </div>
+
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Video Hover Elements -->
+    <div class="video-overlay" id="videoOverlay"></div>
+    <div class="video-hover" id="valorantVideo">
+        <button id="valorantExitBtn" style="position:absolute;top:15px;right:15px;z-index:10;background:rgba(0,0,0,0.7);color:white;border:none;border-radius:50%;width:40px;height:40px;font-size:1.5rem;cursor:pointer;display:none;align-items:center;justify-content:center;">&times;</button>
+        <video id="valorantPlayer" preload="metadata">
+            <source src="Valorant.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Particle Network -->
+    <canvas class="particle-network" id="particleNetwork"></canvas>
+
+    <!-- Starfield -->
+    <div class="starfield" id="starfield"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>Juleane Personal Web</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item" data-target="home">
+                    <div class="planet home"></div>
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item" data-target="about">
+                    <div class="planet about"></div>
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item" data-target="schedule">
+                    <div class="planet schedule"></div>
+                    <a href="#schedule" class="nav-link">Schedule</a>
+                </li>
+                <li class="nav-item" data-target="gallery">
+                    <div class="planet gallery"></div>
+                    <a href="#gallery" class="nav-link">Gallery</a>
+                </li>
+                <li class="nav-item" data-target="map">
+                    <div class="planet" style="background: linear-gradient(45deg, #34a853, #4285f4); box-shadow: 0 0 20px #4285f4;"></div>
+                    <a href="#map" class="nav-link">Map</a>
+                </li>
+                <li class="nav-item" data-target="contacts">
+                    <div class="planet contacts"></div>
+                    <a href="#contacts" class="nav-link">Contacts</a>
+                </li>
+                <li class="nav-item" data-target="projects">
+                    <div class="planet projects"></div>
+                    <a href="#projects" class="nav-link">Projects</a>
+                </li>
+                <li>
+                    <div class="theme-toggle" id="themeToggle">
+                        <span class="theme-icon">🌙</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="section">
+        <div class="particles">
+            <div class="particle" style="width: 4px; height: 4px; top: 20%; left: 10%; animation-delay: 0s;"></div>
+            <div class="particle" style="width: 6px; height: 6px; top: 40%; right: 15%; animation-delay: 2s;"></div>
+            <div class="particle" style="width: 3px; height: 3px; bottom: 30%; left: 20%; animation-delay: 4s;"></div>
+            <div class="particle" style="width: 5px; height: 5px; top: 60%; right: 30%; animation-delay: 1s;"></div>
+        </div>
+        <div class="container">
+            <div class="home-content">
+                <div class="hologram">
+                    <h1>Welcome to my Personal Web</h1>
+                    <p>I am Juleane Piedad</p>
+                </div>
+                <div class="welcome-text">
+                    <p> a passionate developer</p>
+                    <p></p>web experiences and java</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="particles">
+            <div class="particle" style="width: 4px; height: 4px; top: 25%; left: 15%; animation-delay: 1s;"></div>
+            <div class="particle" style="width: 5px; height: 5px; top: 55%; right: 10%; animation-delay: 3s;"></div>
+            <div class="particle" style="width: 3px; height: 3px; bottom: 25%; right: 25%; animation-delay: 5s;"></div>
+        </div>
+        <div class="container animate-section">
+            <h2 class="section-title" title="Learn more about me!">About Me</h2>
+            <div class="about-content">
+                <div class="profile-card" style="background:var(--card-bg);border-radius:20px;padding:2rem;box-shadow:0 4px 20px rgba(0,0,0,0.1);display:flex;flex-direction:column;align-items:center;max-width:350px;margin-bottom:2rem;">
+                    <img src="https://randomuser.me/api/portraits/lego/1.jpg" alt="Avatar" style="width:100px;height:100px;border-radius:50%;box-shadow:0 2px 10px #4facfe;margin-bottom:1rem;">
+                    <h3 style="font-size:1.5rem;color:var(--accent-color);margin-bottom:0.5rem;">Juleane Piedad</h3>
+                    <p style="font-size:1.1rem;line-height:1.6;color:var(--text-secondary);text-align:center;">Navigating through the infinite possibilities of technology and creativity. I'm passionate about building digital experiences that transcend ordinary boundaries.</p>
+                    <div style="display:flex;gap:15px;margin-top:1rem;">
+                        <a href="https://linkedin.com/in/juleanepiedad" target="_blank" title="LinkedIn" style="color:#0a66c2;font-size:1.5rem;"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/juleanepiedad" target="_blank" title="GitHub" style="color:#333;font-size:1.5rem;"><i class="fab fa-github"></i></a>
+                        <a href="mailto:juleane.piedad@gmail.com" title="Email" style="color:#ea4335;font-size:1.5rem;"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="favorites">
+                    <div class="favorite-item" id="valorantFav" title="Hover to watch Valorant highlight!">
+                        <div class="favorite-title">
+                            <i class="fas fa-gamepad" style="color: var(--valorant-color);"></i>
+                            <h3>🎮 Favorite Games</h3>
+                        </div>
+                        <p>Valorant</p>
+                    </div>
+                    <div class="favorite-item" id="musicFav" title="Hover to play Synthwave!">
+                        <div class="favorite-title">
+                            <i class="fas fa-music" style="color: var(--music-color);"></i>
+                            <h3>🎵 Here With me</h3>
+                        </div>
+                        <p>Synthwave</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="section">
+        <div class="particles">
+            <div class="particle" style="width: 6px; height: 6px; top: 15%; left: 25%; animation-delay: 2s;"></div>
+            <div class="particle" style="width: 4px; height: 4px; top: 45%; right: 20%; animation-delay: 4s;"></div>
+            <div class="particle" style="width: 5px; height: 5px; bottom: 20%; left: 10%; animation-delay: 0s;"></div>
+        </div>
+        <div class="container">
+            <h2 class="section-title">My Schedule</h2>
+            <div class="schedule-grid">
+                <div class="card">
+                    <h3 style="color: var(--accent-color); margin-bottom: 1rem;">🚀 Monday - Wednesday</h3>
+                    <p><strong>9:00 AM - 12:00 PM:</strong> Web Development Missions</p>
+                    <p><strong>1:00 PM - 3:00 PM:</strong> Space Research & Learning</p>
+                    <p><strong>4:00 PM - 6:00 PM:</strong> Personal Galaxy Projects</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-color); margin-bottom: 1rem;">🛸 Thursday - Friday</h3>
+                    <p><strong>10:00 AM - 1:00 PM:</strong> Client Mission Control</p>
+                    <p><strong>2:00 PM - 4:00 PM:</strong> Portfolio Constellation Updates</p>
+                    <p><strong>5:00 PM - 7:00 PM:</strong> Skill Enhancement Training</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-color); margin-bottom: 1rem;">🌌 Weekend</h3>
+                    <p><strong>Morning:</strong> Stellar Relaxation & Gaming</p>
+                    <p><strong>Afternoon:</strong> Creative Nebula Exploration</p>
+                    <p><strong>Evening:</strong> Next Mission Planning</极>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section">
+        <div class="particles">
+            <div class="particle" style="width: 3px; height: 3px; top: 35%; left: 5%; animation-delay: 3s;"></div>
+            <div class="particle" style="width: 7px; height: 7px; top: 65%; right: 5%; animation-delay: 1s;"></div>
+            <div class="particle" style="width: 4px; height: 4px; bottom: 35%; right: 15%; animation-delay: 5s;"></div>
+        </div>
+        <div class="container">
+            <h2 class="section-title">My Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <span>Upload Memory 1</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span style="color: white; font-size: 1.2rem;">✨ Click to upload</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <span>📸Upload  Memory 2</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span style="color: white; font-size: 1.2rem;">✨ Click to upload</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <span>Upload Memory 3</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span style="color: white; font-size: 1.2rem;">✨ Click to upload</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <span>Upload Memory 4</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span style="color: white; font-size: 1.2rem;">✨ Click to upload</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <span>Upload Memory 5</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span style="color: white; font-size: 1.2rem;">✨ Click to upload</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <span>Upload Memory 6</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span style="color: white; font-size: 1.2rem;">✨ Click to upload</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacts Section -->
+    <section id="contacts" class="section">
+        <div class="particles">
+            <div class="particle" style="width: 5px; height: 5px; top: 20%; left: 30%; animation-delay: 4极;"></div>
+            <div class="particle" style="width: 3px; height: 3px; top: 50%; right: 25%; animation-delay: 2s;"></div>
+            <div class="particle" style="width: 6px; height: 6px; bottom: 40%; left: 15%; animation-delay: 1s;"></div>
+        </div>
+        <div class="container">
+            <h2 class="section-title">Contact For Me</h2>
+            <div class="contact-grid">
+                <div class="card" style="text-align: center;">
+                    <h3>Email</h3>
+                    <p>juleane.piedad@Gmail.com</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <h3>Phone</h3>
+                    <p>+63454712296</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <h3> LinkedIn</h3>
+                    <p>juleanepiedad.com/in/</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <h3> GitHub </h3>
+                    <p>github.com/juleanepiedad</p>
+                </div>
+            </div>
+            <div class="card" style="margin-top:2rem; max-width:500px; margin-left:auto; margin-right:auto;">
+                <h3 style="margin-bottom:1rem; color:var(--accent-color);">Contact Me via Gmail</h3>
+                <form id="contactGmailForm" style="display:flex; flex-direction:column; gap:1rem;">
+                    <input type="email" id="visitorGmail" name="visitorGmail" placeholder="Your Gmail address" required style="padding:0.7rem; border-radius:8px; border:1px solid var(--border-color);">
+                    <textarea id="visitorMessage" name="visitorMessage" placeholder="Your message" required style="padding:0.7rem; border-radius:8px; border:1px solid var(--border-color); min-height:100px;"></textarea>
+                    <button type="submit" style="padding:0.7rem; border-radius:8px; background:var(--accent-color); color:white; border:none; font-weight:bold; cursor:pointer;">Send to Gmail</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map" class="section">
+        <div class="particles">
+            <div class="particle" style="width: 6px; height: 6px; top: 10%; left: 10%; animation-delay: 1s;"></div>
+            <div class="particle" style="width: 5px; height: 5px; top: 80%; right: 15%; animation-delay: 2s;"></div>
+        </div>
+        <div class="container">
+            <h2 class="section-title">Map</h2>
+            <div style="width: 100%; height: 400px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(79, 172, 254, 0.2);">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387190.2799142046!2d-74.2598676873127!3d40.69767006358737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c250b8c2c6e7e1%3A0x8c6e7e1e1e1e1e1e!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sph!4v1660000000000!5m2!1sen!2sph"
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="particles">
+           
+            <div class="particle" style="width: 6px; height: 6px; top: 70%; right: 12%; animation-delay: 3s;"></div>
+            <div class="particle" style="width: 5px; height: 5px; bottom: 25%; right: 8%; animation-delay: 2s;"></div>
+        </div>
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card" onclick="openBootstrapProject()">
+                    <h3> Bootstrap</h3>
+                    
+                    <div style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.8;">Launch Project</div>
+                </div>
+                <div class="project-card" onclick="openChatGPTProject()">
+                    <h3> Chat Gpt</h3>
+                   
+                    <div style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.8;">Launch Project</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Action Button -->
+    <div class="fab" id="backToTop">
+    <i class="fas fa-arrow-up" title="Back to Top"></i>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-bell"></i>
+        <span>Welcome to my cosmic portfolio!</span>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="valorantAudio" preload="auto">
+        <source src="Valorant.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="spaceAudio" preload="auto">
+        <source src="Space.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="musicAudio" preload="auto">
+        <source src="Music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Modal popup logic
+        window.addEventListener('load', function() {
+            var welcomeModal = document.getElementById('welcomeModal');
+            var closeWelcomeModal = document.getElementById('closeWelcomeModal');
+            if (welcomeModal && closeWelcomeModal) {
+                welcomeModal.style.display = 'flex';
+                closeWelcomeModal.onclick = function() {
+                    welcomeModal.style.display = 'none';
+                };
+            }
+        });
+
+        // Feedback button logic
+        document.getElementById('feedbackBtn').onclick = function() {
+            alert('Thank you for your feedback! (Demo)');
+        };
+
+        // Search bar logic
+        document.getElementById('searchBtn').onclick = function() {
+            var query = document.getElementById('searchBar').value.trim().toLowerCase();
+            if (!query) return;
+            var found = false;
+            document.querySelectorAll('.section-title').forEach(function(title) {
+                if (title.textContent.toLowerCase().includes(query)) {
+                    window.scrollTo({ top: title.parentElement.offsetTop - 70, behavior: 'smooth' });
+                    found = true;
+                }
+            });
+            if (!found) showNotification('No results found for "' + query + '"', 2500);
+        };
+
+        // Improved back to top button
+        var backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 500) {
+                backToTop.style.opacity = '1';
+                backToTop.style.pointerEvents = 'auto';
+            } else {
+                backToTop.style.opacity = '0';
+                backToTop.style.pointerEvents = 'none';
+            }
+        });
+        backToTop.onclick = function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // Notification system (already present, but improved)
+        function showNotification(message, duration) {
+            var notification = document.getElementById('notification');
+            if (!notification) return;
+            notification.querySelector('span').textContent = message;
+            notification.classList.add('show');
+            setTimeout(function() {
+                notification.classList.remove('show');
+            }, duration);
+        }
+        // Initialize everything when page loads
+        window.addEventListener('load', function() {
+            initStarfield();
+            initAnimations();
+            initNavigation();
+            initThemeToggle();
+            initScrollProgress();
+            initVideoHover();
+            initParticleNetwork();
+            initBackToTop();
+            showNotification('Welcome to my cosmic portfolio!', 3000);
+
+            // Contact Gmail form handler
+            var contactForm = document.getElementById('contactGmailForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    var gmail = document.getElementById('visitorGmail').value;
+                    var message = document.getElementById('visitorMessage').value;
+                    var mailto = 'mailto:juleane.piedad@gmail.com?subject=Contact%20from%20' + encodeURIComponent(gmail) + '&body=' + encodeURIComponent(message);
+                    window.location.href = mailto;
+                });
+            }
+
+            // Hide loading screen
+            setTimeout(function() {
+                document.getElementById('loadingOverlay').style.opacity = '0';
+                setTimeout(function() {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                }, 500);
+            }, 2000);
+        });
+
+        // Create animated starfield
+        function initStarfield() {
+            const starfield = document.getElementById('starfield');
+            const starCount = 200;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                starfield.appendChild(star);
+            }
+        }
+
+        // Navigation and planet animations
+        function initNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const sections = document.querySelectorAll('.section');
+
+            // Smooth scrolling with planet animation
+            navItems.forEach(function(item) {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    const planet = this.querySelector('.planet');
+                    
+                    // Animate planet
+                    planet.classList.add('active');
+                    setTimeout(function() {
+                        planet.classList.remove('active');
+                    }, 2000);
+                    
+                    // Remove active class from all nav items
+                    navItems.forEach(function(nav) {
+                        nav.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Smooth scroll
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Update active navigation on scroll
+            window.addEventListener('scroll', function() {
+                let current = '';
+                sections.forEach(function(section) {
+                    const sectionTop = section.offsetTop - 100;
+                    if (window.scrollY >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navItems.forEach(function(item) {
+                    item.classList.remove('active');
+                    if (item.getAttribute('data-target') === current) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // Theme toggle functionality
+        function initThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            const themeIcon = themeToggle.querySelector('.theme-icon');
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            body.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+                
+                // Add animation effect
+                themeToggle.style.transform = 'rotate(360deg)';
+                setTimeout(function() {
+                    themeToggle.style.transform = '';
+                }, 300);
+            });
+
+            function updateThemeIcon(theme) {
+                themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+            }
+        }
+
+        // Scroll progress indicator
+        function initScrollProgress() {
+            const progressBar = document.getElementById('scrollProgress');
+            
+            window.addEventListener('scroll', function() {
+                const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = (window.scrollY / totalHeight) * 100;
+                progressBar.style.width = progress + '%';
+            });
+        }
+
+        // Initialize scroll animations
+        function initAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all animatable elements
+            document.querySelectorAll('.section-title, .favorite-item, .card, .gallery-item, .project-card').forEach(function(el) {
+                observer.observe(el);
+            });
+
+            // Add staggered animation delays
+            document.querySelectorAll('.favorite-item').forEach(function(item, index) {
+                item.style.transitionDelay = (index * 0.1) + 's';
+            });
+
+            document.querySelectorAll('.card').forEach(function(item, index) {
+                item.style.transitionDelay = (index * 0.1) + 's';
+            });
+
+            document.querySelectorAll('.gallery-item').forEach(function(item, index) {
+                item.style.transitionDelay = (index * 0.1) + 's';
+            });
+
+            document.querySelectorAll('.project-card').forEach(function(item, index) {
+                item.style.transitionDelay = (index * 0.2) + 's';
+            });
+        }
+
+        // Video hover effect
+        function initVideoHover() {
+            const valorantFav = document.getElementById('valorantFav');
+            const musicFav = document.getElementById('musicFav');
+            const valorantVideo = document.getElementById('valorantVideo');
+            const videoOverlay = document.getElementById('videoOverlay');
+            const valorantPlayer = document.getElementById('valorantPlayer');
+            const valorantAudio = document.getElementById('valorantAudio');
+            const musicAudio = document.getElementById('musicAudio');
+
+
+                // --- Expanded hover logic for Valorant ---
+                let valorantHover = false;
+                let hoverTimeout;
+                function showValorant() {
+                    valorantVideo.classList.add('active');
+                    videoOverlay.classList.add('active');
+                    valorantPlayer.currentTime = 67;
+                    valorantPlayer.play().catch(function(e) {
+                        console.log("Video play failed:", e);
+                    });
+                    valorantAudio.currentTime = 0;
+                    valorantAudio.play().catch(function(e) {
+                        console.log("Audio play failed:", e);
+                    });
+                    valorantFav.classList.add('beat-animation');
+                    // Show exit button
+                    document.getElementById('valorantExitBtn').style.display = 'flex';
+                }
+                function hideValorant() {
+                    valorantVideo.classList.remove('active');
+                    videoOverlay.classList.remove('active');
+                    valorantPlayer.pause();
+                    valorantAudio.pause();
+                    valorantFav.classList.remove('beat-animation');
+                    // Hide exit button
+                    document.getElementById('valorantExitBtn').style.display = 'none';
+                }
+            // Exit button logic
+            document.getElementById('valorantExitBtn').addEventListener('click', function(e) {
+                e.stopPropagation();
+                hideValorant();
+            });
+                function setValorantHover(state) {
+                    valorantHover = state;
+                    if (valorantHover) {
+                        if (hoverTimeout) clearTimeout(hoverTimeout);
+                        showValorant();
+                    } else {
+                        hoverTimeout = setTimeout(function() {
+                            if (!valorantHover) hideValorant();
+                        }, 100);
+                    }
+                }
+                // Listen for mouseenter/mouseleave on both container and video overlay
+                [valorantFav, videoOverlay, valorantVideo].forEach(function(el) {
+                    el.addEventListener('mouseenter', function() {
+                        setValorantHover(true);
+                    });
+                    el.addEventListener('mouseleave', function(e) {
+                        // Only close if mouse is not moving to another hover area
+                        if (![valorantFav, videoOverlay, valorantVideo].some(area => area.contains(e.relatedTarget))) {
+                            setValorantHover(false);
+                        }
+                    });
+                });
+
+
+            // Music hover
+            musicFav.addEventListener('mouseenter', function() {
+                // Play the audio only
+                musicAudio.currentTime = 0;
+                musicAudio.play().catch(function(e) {
+                    console.log("Audio play failed:", e);
+                });
+                
+                // Add beat animation
+                this.classList.add('beat-animation');
+            });
+
+            musicFav.addEventListener('mouseleave', function() {
+                // Pause the audio
+                musicAudio.pause();
+                
+                // Remove beat animation
+                this.classList.remove('beat-animation');
+            });
+
+            // Close on overlay click
+            videoOverlay.addEventListener('click', function() {
+                valorantVideo.classList.remove('active');
+                spaceVideo.classList.remove('active');
+                videoOverlay.classList.remove('active');
+                
+                valorantPlayer.pause();
+                spacePlayer.pause();
+                
+                valorantAudio.pause();
+                spaceAudio.pause();
+                musicAudio.pause();
+                
+                document.querySelectorAll('.favorite-item').forEach(function(item) {
+                    item.classList.remove('beat-animation');
+                });
+            });
+        }
+
+
+        // Particle network
+        function initParticleNetwork() {
+            const canvas = document.getElementById('particleNetwork');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            // Create particles
+            const particles = [];
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2 + 1,
+                    speedX: (Math.random() - 0.5) * 0.5,
+                    speedY: (Math.random() - 0.5) * 0.5,
+                    color: `hsl(${Math.random() * 360}, 70%, 70%)`
+                });
+            }
+            
+            // Draw particles
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Update and draw particles
+                particles.forEach(function(particle) {
+                    particle.x += particle.speedX;
+                    particle.y += particle.speedY;
+                    
+                    // Bounce off walls
+                    if (particle.x < 0 || particle.x > canvas.width) {
+                        particle.speedX = -particle.speedX;
+                    }
+                    if (particle.y < 0 || particle.y > canvas.height) {
+                        particle.speedY = -particle.speedY;
+                    }
+                    
+                    // Draw particle
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = particle.color;
+                    ctx.fill();
+                    
+                    // Draw connections
+                    particles.forEach(function(otherParticle) {
+                        const distance = Math.sqrt(
+                            Math.pow(particle.x - otherParticle.x, 2) + 
+                            Math.pow(particle.y - otherParticle.y, 2)
+                        );
+                        
+                        if (distance < 100) {
+                            ctx.beginPath();
+                            ctx.moveTo(particle.x, particle.y);
+                            ctx.lineTo(otherParticle.x, otherParticle.y);
+                            ctx.strokeStyle = `hsla(${Math.random() * 360}, 70%, 70%, ${1 - distance/100})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    });
+                });
+                
+                requestAnimationFrame(draw);
+            }
+            
+            draw();
+            
+            // Resize canvas when window size changes
+            window.addEventListener('resize', function() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        // Back to top button
+        function initBackToTop() {
+            const backToTop = document.getElementById('backToTop');
+            
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Show/hide button based on scroll position
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 500) {
+                    backToTop.style.opacity = '1';
+                    backToTop.style.pointerEvents = 'auto';
+                } else {
+                    backToTop.style.opacity = '0';
+                    backToTop.style.pointerEvents = 'none';
+                }
+            });
+        }
+
+        // Notification system
+        function showNotification(message, duration) {
+            const notification = document.getElementById('notification');
+            notification.querySelector('span').textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(function() {
+                notification.classList.remove('show');
+            }, duration);
+        }
+
+        // Project functions
+        function openBootstrapProject() {
+            window.open('boostrap.html', '_blank');
+        }
+        function openChatGPTProject() {
+            window.open('chatgpt.html', '_blank');
+        }
+
+        // Enhanced gallery functionality
+        document.querySelectorAll('.gallery-item').forEach(function(item) {
+            item.addEventListener('click', function() {
+                // Create cosmic upload effect
+                this.style.transform = 'scale(1.05) rotateZ(5deg)';
+                setTimeout(function() {
+                    item.style.transform = '';
+                }, 200);
+
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            item.innerHTML = `
+                                <img src="${e.target.result}" alt="Cosmic Memory" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                                <div class="gallery-overlay">
+                                    <span style="color: white; font-size: 1.2rem;">✨ Click to change</span>
+                                </div>
+                            `;
+                            
+                            // Add hover effect to uploaded image
+                            const img = item.querySelector('img');
+                            item.addEventListener('mouseenter', function() {
+                                img.style.transform = 'scale(1.1) rotate(2deg)';
+                            });
+                            item.addEventListener('mouseleave', function() {
+                                img.style.transform = 'scale(1) rotate(0deg)';
+                            });
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+                input.click();
+            });
+        });
+
+        // Add cosmic particle effects on scroll
+        let particleCounter = 0;
+        window.addEventListener('scroll', function() {
+            if (particleCounter % 10 === 0) {
+                createScrollParticle();
+            }
+            particleCounter++;
+        });
+
+        function createScrollParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = '4px';
+            particle.style.height = '4px';
+            particle.style.background = 'var(--accent-color)';
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '999';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = '100vh';
+            particle.style.opacity = '0.7';
+            
+            document.body.appendChild(particle);
+            
+            const animation = particle.animate([
+                { transform: 'translateY(0px)', opacity: 0.7 },
+                { transform: 'translateY(-100vh)', opacity: 0 }
+            ], {
+                duration: 2000,
+                easing: 'ease-out'
+            });
+            
+            animation.onfinish = function() {
+                particle.remove();
+            };
+        }
+
+        // Add planet hover sound effect (visual feedback)
+        document.querySelectorAll('.planet').forEach(function(planet) {
+            planet.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 0 40px currentColor, 0 0 80px currentColor';
+            });
+            
+            planet.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '0 0 20px currentColor';
+            });
+        });
+
+        // Cosmic typing effect for home title
+        function initCosmicTyping() {
+            const title = document.querySelector('.home-content h1');
+            const text = title.textContent;
+            title.textContent = '';
+            title.style.opacity = '1';
+            
+            let i = 0;
+            const typeInterval = setInterval(function() {
+                title.textContent = text.slice(0, i);
+                i++;
+                
+                if (i > text.length) {
+                    clearInterval(typeInterval);
+                }
+            }, 100);
+        }
+
+        // Initialize cosmic typing after page load
+        setTimeout(initCosmicTyping, 3000);
+
+        // Add floating cosmic debris
+        function createCosmicDebris() {
+            const debris = document.createElement('div');
+            debris.style.position = 'fixed';
+            debris.style.width = Math.random() * 3 + 1 + 'px';
+            debris.style.height = debris.style.width;
+            debris.style.background = 'hsl(' + (Math.random() * 60 + 180) + ', 70%, 70%)';
+            debris.style.borderRadius = '50%';
+            debris.style.opacity = Math.random() * 0.5 + 0.2;
+            debris.style.pointerEvents = 'none';
+            debris.style.zIndex = '-1';
+            debris.style.left = Math.random() * window.innerWidth + 'px';
+            debris.style.top = '-10px';
+            
+            document.body.appendChild(debris);
+            
+            const animation = debris.animate([
+                { 
+                    transform: 'translateY(-10px) rotate(0deg)',
+                    opacity: 0 
+                },
+                { 
+                    transform: 'translateY(' + (window.innerHeight + 10) + 'px) rotate(360deg)',
+                    opacity: debris.style.opacity 
+                },
+                { 
+                    transform: 'translateY(' + (window.innerHeight + 20) + 'px) rotate(720deg)',
+                    opacity: 0 
+                }
+            ], {
+                duration: Math.random() * 10000 + 15000,
+                easing: 'linear'
+            });
+            
+            animation.onfinish = function() {
+                debris.remove();
+            };
+        }
+
+        // Create cosmic debris periodically
+        setInterval(createCosmicDebris, 3000);
+    </script>
+</body>
+</html>
